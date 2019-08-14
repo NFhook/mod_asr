@@ -1,0 +1,35 @@
+2019-08-13 12:40:37 AliSpeech_C++SDK(INFO)[139787506767616]: getStartCommand:253 StartCommand: {"context":{"sdk":{"language":"C++","name":"nls-sdk-linux","version":"2.3.15"}},"header":{"appkey":"un2wEHfu32KN5ELW","message_id":"6b6604a44f574269bf82904de2f60d35","name":"StartRecognition","namespace":"SpeechRecognizer","task_id":"c7002b41583349258046b49df70d6198"},"payload":{"enable_intermediate_result":true,"enable_inverse_text_normalization":true,"enable_punctuation_prediction":true,"format":"pcm","sample_rate":16000}}
+
+2019-08-13 12:40:37 AliSpeech_C++SDK(INFO)[139787506767616]: start:152 StartCommand sent to server.
+2019-08-13 12:40:37 AliSpeech_C++SDK(INFO)[139787428165376]: handlerFrame:379 Begin HandlerFrame.
+2019-08-13 12:40:37 AliSpeech_C++SDK(INFO)[139787428165376]: convertResult:51 Response: {"header":{"namespace":"SpeechRecognizer","name":"RecognitionStarted","status":20000000,"message_id":"e50264ca0c5f4f8ba3722d0d98b0acc6","task_id":"c7002b41583349258046b49df70d6198","status_text":"Gateway:SUCCESS:Success."}}
+2019-08-13 12:40:37 AliSpeech_C++SDK(INFO)[139787428165376]: handlerFrame:469 End HandlerFrame.
+2019-08-13 12:40:39 AliSpeech_C++SDK(INFO)[139787428165376]: handlerFrame:379 Begin HandlerFrame.
+2019-08-13 12:40:39 AliSpeech_C++SDK(INFO)[139787428165376]: convertResult:51 Response: {"header":{"namespace":"SpeechRecognizer","name":"RecognitionResultChanged","status":20000000,"message_id":"4682b5af926840138ff7ad19ed6713e9","task_id":"c7002b41583349258046b49df70d6198","status_text":"Gateway:SUCCESS:Success."},"payload":{"result":"因","duration":1900}}
+2019-08-13 12:40:39 AliSpeech_C++SDK(INFO)[139787428165376]: handlerFrame:469 End HandlerFrame.
+2019-08-13 12:40:39 AliSpeech_C++SDK(INFO)[139787428165376]: handlerFrame:379 Begin HandlerFrame.
+2019-08-13 12:40:39 AliSpeech_C++SDK(INFO)[139787428165376]: convertResult:51 Response: {"header":{"namespace":"SpeechRecognizer","name":"RecognitionResultChanged","status":20000000,"message_id":"aeffc8f8ce634f4899abbed3f7eb832e","task_id":"c7002b41583349258046b49df70d6198","status_text":"Gateway:SUCCESS:Success."},"payload":{"result":"12","duration":2400}}
+2019-08-13 12:40:39 AliSpeech_C++SDK(INFO)[139787428165376]: handlerFrame:469 End HandlerFrame.
+2019-08-13 12:40:40 AliSpeech_C++SDK(INFO)[139787428165376]: handlerFrame:379 Begin HandlerFrame.
+2019-08-13 12:40:40 AliSpeech_C++SDK(INFO)[139787428165376]: convertResult:51 Response: {"header":{"namespace":"SpeechRecognizer","name":"RecognitionResultChanged","status":20000000,"message_id":"25004f487b5447fca56cf0b7a1298ec4","task_id":"c7002b41583349258046b49df70d6198","status_text":"Gateway:SUCCESS:Success."},"payload":{"result":"123","duration":2600}}
+2019-08-13 12:40:40 AliSpeech_C++SDK(INFO)[139787428165376]: handlerFrame:469 End HandlerFrame.
+2019-08-13 12:40:40 AliSpeech_C++SDK(INFO)[139787428165376]: handlerFrame:379 Begin HandlerFrame.
+2019-08-13 12:40:40 AliSpeech_C++SDK(INFO)[139787428165376]: convertResult:51 Response: {"header":{"namespace":"SpeechRecognizer","name":"RecognitionResultChanged","status":20000000,"message_id":"a3391b34e8504699b28fd8d52106a936","task_id":"c7002b41583349258046b49df70d6198","status_text":"Gateway:SUCCESS:Success."},"payload":{"result":"1234","duration":2900}}
+2019-08-13 12:40:40 AliSpeech_C++SDK(INFO)[139787428165376]: handlerFrame:469 End HandlerFrame.
+2019-08-13 12:40:40 AliSpeech_C++SDK(INFO)[139787428165376]: handlerFrame:379 Begin HandlerFrame.
+2019-08-13 12:40:40 AliSpeech_C++SDK(INFO)[139787428165376]: convertResult:51 Response: {"header":{"namespace":"SpeechRecognizer","name":"RecognitionResultChanged","status":20000000,"message_id":"081e8c7878f2448ea72f173dc2094ef4","task_id":"c7002b41583349258046b49df70d6198","status_text":"Gateway:SUCCESS:Success."},"payload":{"result":"12345","duration":3300}}
+2019-08-13 12:40:40 AliSpeech_C++SDK(INFO)[139787428165376]: handlerFrame:469 End HandlerFrame.
+2019-08-13 12:40:42 AliSpeech_C++SDK(INFO)[139787428165376]: handlerFrame:379 Begin HandlerFrame.
+2019-08-13 12:40:42 AliSpeech_C++SDK(INFO)[139787428165376]: convertResult:51 Response: {"header":{"namespace":"SpeechRecognizer","name":"RecognitionResultChanged","status":20000000,"message_id":"a3e1743cae66493bafa09aa95ca9ee92","task_id":"c7002b41583349258046b49df70d6198","status_text":"Gateway:SUCCESS:Success."},"payload":{"result":"123417","duration":4500}}
+2019-08-13 12:40:42 AliSpeech_C++SDK(INFO)[139787428165376]: handlerFrame:469 End HandlerFrame.
+2019-08-13 12:40:42 AliSpeech_C++SDK(INFO)[139787428165376]: handlerFrame:379 Begin HandlerFrame.
+2019-08-13 12:40:42 AliSpeech_C++SDK(INFO)[139787428165376]: convertResult:51 Response: {"header":{"namespace":"SpeechRecognizer","name":"RecognitionResultChanged","status":20000000,"message_id":"5787763f54944e2db3817d7a625036f0","task_id":"c7002b41583349258046b49df70d6198","status_text":"Gateway:SUCCESS:Success."},"payload":{"result":"12345678","duration":5300}}
+2019-08-13 12:40:42 AliSpeech_C++SDK(INFO)[139787428165376]: handlerFrame:469 End HandlerFrame.
+2019-08-13 12:40:43 AliSpeech_C++SDK(INFO)[139787428165376]: handlerFrame:379 Begin HandlerFrame.
+2019-08-13 12:40:43 AliSpeech_C++SDK(INFO)[139787428165376]: convertResult:51 Response: {"header":{"namespace":"SpeechRecognizer","name":"RecognitionResultChanged","status":20000000,"message_id":"526f051ff7a242329d4aa21fcf66a252","task_id":"c7002b41583349258046b49df70d6198","status_text":"Gateway:SUCCESS:Success."},"payload":{"result":"123456789","duration":5500}}
+2019-08-13 12:40:43 AliSpeech_C++SDK(INFO)[139787428165376]: handlerFrame:469 End HandlerFrame.
+2019-08-13 12:40:43 AliSpeech_C++SDK(INFO)[139787506767616]: getStopCommand:269 StopCommand: {"context":{"sdk":{"language":"C++","name":"nls-sdk-linux","version":"2.3.15"}},"header":{"appkey":"un2wEHfu32KN5ELW","message_id":"2ff59627bb824056ae48a975b15055b8","name":"StopRecognition","namespace":"SpeechRecognizer","task_id":"c7002b41583349258046b49df70d6198"}}
+
+2019-08-13 12:40:43 AliSpeech_C++SDK(INFO)[139787428165376]: handlerFrame:379 Begin HandlerFrame.
+2019-08-13 12:40:43 AliSpeech_C++SDK(INFO)[139787428165376]: convertResult:51 Response: {"header":{"namespace":"SpeechRecognizer","name":"RecognitionCompleted","status":20000000,"message_id":"cd31b8e147be47f0b4858f469d9776cc","task_id":"c7002b41583349258046b49df70d6198","status_text":"Gateway:SUCCESS:Success."},"payload":{"result":"123456789，10","duration":5742}}
+2019-08-13 12:40:43 AliSpeech_C++SDK(INFO)[139787428165376]: handlerFrame:469 End HandlerFrame.

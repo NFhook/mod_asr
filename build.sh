@@ -1,0 +1,1 @@
+g++ -shared -fPIC -o mod_asr.so mod_asr.cpp -pthread -I ./NlsSdkCpp2.0/include -I /usr/local/freeswitch/include/freeswitch -L /usr/local/freeswitch/lib -L ./NlsSdkCpp2.0/lib/linux -lpthread  -lnlsCppSdk -lnlsCommonSdk -ljsoncpp -luuid -lopus -ldl -lfreeswitch -D_GLIBCXX_USE_CXX11_ABI=0

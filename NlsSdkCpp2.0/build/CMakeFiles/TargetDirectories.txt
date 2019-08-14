@@ -1,0 +1,5 @@
+/usr/local/src/freeswitch/freeswitch/src/mod/applications/mod_asr/NlsSdkCpp2.0/build/CMakeFiles/srDemo.dir
+/usr/local/src/freeswitch/freeswitch/src/mod/applications/mod_asr/NlsSdkCpp2.0/build/CMakeFiles/srSyncDemo.dir
+/usr/local/src/freeswitch/freeswitch/src/mod/applications/mod_asr/NlsSdkCpp2.0/build/CMakeFiles/stDemo.dir
+/usr/local/src/freeswitch/freeswitch/src/mod/applications/mod_asr/NlsSdkCpp2.0/build/CMakeFiles/stSyncDemo.dir
+/usr/local/src/freeswitch/freeswitch/src/mod/applications/mod_asr/NlsSdkCpp2.0/build/CMakeFiles/syDemo.dir

@@ -1,0 +1,77 @@
+-----2018/08/06 Version:2.3.1-----
+
+1. speechXXXRequest.h  添加setPayloadParam()模版方法
+2. speechTranscriberRequest.h 添加 语义参数设置接口
+3. 删除配置文件模块
+4. jsoncpp 以动态库形式集成，不在以源码形式集成
+5. 增加命名空间AlibabaNls，防止与用户自定义的类型和接口冲突
+6. 修改demo文件在Windows下utf-8编码格式编译错误问题
+7. SpeechRecognizerRequest.h 一句话识别添加静音检测参数接口
+
+-------------------------------
+
+-----2018/08/21 Version:2.3.2-----
+
+1: 添加dialogAssistant协议
+2: 新增request对象基类头文件nlsCppSdk/framework/feature/(iNlsRequest.h/iNlsRequestListener.h)
+3:实时转写新增vad参数设置接口setMaxSentenceSilence()
+4:添加ios平台ipv6支持
+5:新增一句话识别同步接口，接口详见头文件nlsCppSdk/framework/feature/sr/speechRecognizerSyncRequest.h
+6:新增实时语音识别同步接口，接口详见头文件nlsCppSdk/framework/feature/st/speechTranscriberSyncRequest.h
+7:优化一句话，实时语音demo. 在demo中添加错误处理逻辑代码。
+8:整理发送线程TaskFailed事件，新增自定义错误码。
+9:添加同步接口单元测试模块
+10:添加dialogAssistant接口单元测试模块
+
+-----2018/08/21 Version:2.3.3-----
+1: 对话助手，一句话识别，实时长语音，语音合成添加int setParams(const char* value)接口；
+
+-----2018/09/03 Version:2.3.4-----
+1: fix SDK 添加connect，recv超时处理，解决长时间不返回问题。
+2: 调整语音助手setQueryParams()接口。
+3: 调整通用Payload，Context参数设置接口。
+
+-----2018/09/10 Version:2.3.6-----
+1: fix connect 阻塞不返回BUG
+2: SDK在TaskFailed，complete事件时内部关闭连接，应用层再次调用send，stop不会上报TaskFailed事件
+
+-----2018/09/10 Version:2.3.7-----
+1: Demo优化，调整发送缓冲为100ms.
+2: fix SDK内部异常时，多次上报TaskFailed事件
+3: 修改日志输出，终端输出时也可设置级别
+4: 添加UDS sessionId 默认值，与Task Id相同
+
+
+-----2018/10/08 Version:2.3.8-----
+1: fix UDS接口setQueryParams设置错误
+2: stop时增加context参数
+
+
+-----2018/11/09 Version:2.3.9-----
+1: 实时语音onSentenceEnd事件添加句子开始时间接口getSentenceBeginTime()；添加置信度接口getSentenceConfidence()；
+2: start()发送403错误时，在TaskFailed事件中添加错误原因描述
+3: fix 大并发下start耗时过久BUG
+4: 添加OPUS，SPEEX支持
+
+-----2018/11/09 Version:2.3.10-----
+1: 修复linux大并发下偶现start失败问题
+2: 增加nlsOpu编码库，用于opu编码
+
+-----2018/12/29 Version:2.3.11-----
+1: 增加vipServer client功能
+
+-----2019/01/08 Version:2.3.12-----
+1: vipServer支持多服务地址
+
+
+-----2019/01/27 Version:2.3.13-----
+1: 优化连接建立过程
+2: fix ios 网络连接BUG
+
+-----2019/01/28 Version:2.3.15-----
+1: 优化json解析过程
+2: sentcenceEnd事件添加stashResult接口
+
+-----2019/03/04 Version:2.3.16-----
+1: Demo添加参数设置方法展示
+
