@@ -198,7 +198,8 @@ void onSentenceEnd(NlsEvent* cbEvent, void* cbParam) {
                     tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec, tm.tm_usec);
     switch_snprintf(filepath, sizeof(filepath), "../recordings/");
     switch_log_printf(SWITCH_CHANNEL_LOG, SWITCH_LOG_NOTICE, "----------------------------------2:%s\n", cbEvent->getAllResponse());
-    cJSON *cj, *cjp, *cjc1, *cjc2, *cjc3;
+    //cJSON *cj, *cjp, *cjc1, *cjc2, *cjc3;
+    cJSON *cj, *cjp, *cjc2, *cjc3;
     int nflag = 0;
     int nlen = 0;
     int nevent = 0;
@@ -229,7 +230,7 @@ void onSentenceEnd(NlsEvent* cbEvent, void* cbParam) {
                     switch_da_t *pvt;
                     switch_core_session_t *ses = switch_core_session_force_locate(tmpParam->sUUID);
                     switch_channel_t *channel = switch_core_session_get_channel(ses);
-                    if(pvt = (switch_da_t*)switch_channel_get_private(channel, "asr"))
+                    if((pvt = (switch_da_t*)switch_channel_get_private(channel, "asr")) != NULL)
                     {
                         //if (cjc1 = cJSON_GetObjectItem(cjp, "payload")) {
                         switch_log_printf(SWITCH_CHANNEL_LOG, SWITCH_LOG_DEBUG, " OnResultDataRecved %s %s %s\n", tmpParam->sUUID, cbEvent->getResult(),currtime);
@@ -268,7 +269,7 @@ void onSentenceEnd(NlsEvent* cbEvent, void* cbParam) {
                                 {
                                     switch_snprintf(answered, sizeof(answered), "false");
                                 }
-                                //switch_mutex_unlock(pvt->mutex);
+                              //switch_mutex_unlock(pvt->mutex);
 
 
                             }
@@ -319,12 +320,12 @@ void onSentenceEnd(NlsEvent* cbEvent, void* cbParam) {
  */
 void onTranscriptionResultChanged(NlsEvent* cbEvent, void* cbParam) {
     ParamCallBack* tmpParam = (ParamCallBack*)cbParam;
-    char filename[100];
+    //char filename[100];
     char answered[10];
     char filepath[150];
     char currtime[50];
     char currpath[100];
-    char fullpath[200];
+    //char fullpath[200];
     //char channelname[100];
     getcwd(currpath,sizeof(currpath));
     switch_time_exp_t tm;
@@ -333,9 +334,10 @@ void onTranscriptionResultChanged(NlsEvent* cbEvent, void* cbParam) {
     switch_snprintf(currtime, sizeof(currtime), "%0.4d%0.2d%0.2d%0.2d%0.2d%0.2d%0.6d",tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec, tm.tm_usec);
     switch_snprintf(filepath, sizeof(filepath), "../recordings/");
     switch_log_printf(SWITCH_CHANNEL_LOG, SWITCH_LOG_NOTICE, "----------------------------------1:%s\n", cbEvent->getAllResponse());
-    cJSON *cj, *cjp, *cjc1, *cjc2, *cjc3;
-    int nflag = 0;
-    int nlen = 0;
+//    cJSON *cj, *cjp, *cjc1, *cjc2, *cjc3;
+    cJSON *cj, *cjp;
+//    int nflag = 0;
+//    int nlen = 0;
     if (!(cj = cJSON_Parse(cbEvent->getAllResponse()))) {
         //return SWITCH_STATUS_FALSE;
     }else
@@ -362,7 +364,7 @@ void onTranscriptionResultChanged(NlsEvent* cbEvent, void* cbParam) {
                     switch_da_t *pvt;
                     switch_core_session_t *ses = switch_core_session_force_locate(tmpParam->sUUID);
                     switch_channel_t *channel = switch_core_session_get_channel(ses);
-                    if(pvt = (switch_da_t*)switch_channel_get_private(channel, "asr"))
+                    if((pvt = (switch_da_t*)switch_channel_get_private(channel, "asr")) != NULL)
                     {
                         if(ses)
                         {
@@ -419,7 +421,7 @@ void onTranscriptionStarted(NlsEvent* cbEvent, void* cbParam) {
 
     switch_core_session_t *ses = switch_core_session_force_locate(tmpParam->sUUID);
     switch_channel_t *channel = switch_core_session_get_channel(ses);
-    if(pvt = (switch_da_t*)switch_channel_get_private(channel, "asr"))
+    if((pvt = (switch_da_t*)switch_channel_get_private(channel, "asr")) != NULL)
     {
         //switch_mutex_lock(pvt->mutex);
         //pthread_mutex_lock(&(pvt->mutex));
@@ -474,7 +476,7 @@ void onTranscriptionCompleted(NlsEvent* cbEvent, void* cbParam) {
     switch_core_session_t *ses = switch_core_session_force_locate(tmpParam->sUUID);
     switch_channel_t *channel = switch_core_session_get_channel(ses);
 
-    if (pvt = (switch_da_t*)switch_channel_get_private(channel, "asr"))
+    if ((pvt = (switch_da_t*)switch_channel_get_private(channel, "asr")) != NULL)
     {
         //switch_mutex_lock(pvt->mutex);
         // pthread_mutex_lock(&(pvt->mutex));
@@ -490,7 +492,7 @@ void onTranscriptionCompleted(NlsEvent* cbEvent, void* cbParam) {
 }
 
 void onSentenceBegin(NlsEvent* cbEvent, void* cbParam) {
-    ParamCallBack* tmpParam = (ParamCallBack*)cbParam;
+    //ParamCallBack* tmpParam = (ParamCallBack*)cbParam;
     switch_log_printf(SWITCH_CHANNEL_LOG, SWITCH_LOG_NOTICE, " onSentenceBegin %s %s\n", cbEvent->getTaskId(), cbEvent->getResult());
 }
 
@@ -510,7 +512,7 @@ void onTaskFailed(NlsEvent* cbEvent, void* cbParam) {
     switch_channel_t *channel = switch_core_session_get_channel(ses);
 
     switch_log_printf(SWITCH_CHANNEL_LOG, SWITCH_LOG_WARNING, " OnOperationFailed %s %s\n", tmpParam->sUUID, cbEvent->getErrorMessage());
-    if (pvt = (switch_da_t*)switch_channel_get_private(channel, "asr"))
+    if ((pvt = (switch_da_t*)switch_channel_get_private(channel, "asr")) != NULL)
     {
         //switch_mutex_lock(pvt->mutex);
         //pthread_mutex_lock(&(pvt->mutex));
