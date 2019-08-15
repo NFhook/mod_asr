@@ -1,7 +1,7 @@
 # FreeSWITCH ASR模块
 
 [阿里云ASR](https://help.aliyun.com/product/30413.html?spm=a2c4g.11186623.2.10.6b634c07NBBDiY)和FreeSWITCH直接对接，识别结果通过ESL输出  
-[**下载阿里云语音识别SDK**](http://download.taobaocdn.com/freedom/33762/compress/NlsSdkCpp2.zip?spm=a2c4g.11186623.2.15.35312318Ptx8fD&file=NlsSdkCpp2.zip)  
+阿里云语音识别SDK: [**NlsSdkCpp2.0**](http://download.taobaocdn.com/freedom/33762/compress/NlsSdkCpp2.zip?spm=a2c4g.11186623.2.15.35312318Ptx8fD&file=NlsSdkCpp2.zip)  
 
 ### 编译安装
 
