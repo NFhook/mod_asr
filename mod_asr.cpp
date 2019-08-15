@@ -6,19 +6,9 @@
 
 #include <string>
 #include <unistd.h>
-#define DR_WAV_IMPLEMENTATION
-#include "dr_wav.h"
 
 #define FRAME_SIZE 3200
 #define SAMPLE_RATE 8000
-
-using std::map;
-using std::string;
-using std::vector;
-//using std::cout;
-//using std::endl;
-using std::ifstream;
-using std::ios;
 
 using namespace AlibabaNlsCommon;
 
@@ -26,6 +16,7 @@ using AlibabaNls::NlsClient;
 using AlibabaNls::NlsEvent;
 using AlibabaNls::LogDebug;
 using AlibabaNls::LogInfo;
+
 using AlibabaNls::SpeechTranscriberCallback;
 using AlibabaNls::SpeechTranscriberRequest;
 
@@ -67,26 +58,6 @@ typedef struct {
     int                     datatotal;
     int                     framelen;
 } switch_da_t;
-
-
-
-void wavWrite_int16(char *filename, char *buffer, int sampleRate, uint32_t totalSampleCount) {
-    drwav_data_format format;
-    format.container = drwav_container_riff;
-    format.format = DR_WAVE_FORMAT_PCM;
-    format.channels = 1;
-    format.sampleRate = (drwav_uint32) sampleRate;
-    format.bitsPerSample = 16;
-    drwav *pWav = drwav_open_file_write(filename, &format);
-    if (pWav) {
-        drwav_uint64 samplesWritten = drwav_write_raw(pWav, totalSampleCount, buffer);
-        drwav_uninit(pWav);
-        if (samplesWritten != totalSampleCount) {
-            fprintf(stderr, "ERROR.\n");
-            exit(1);
-        }
-    }
-}
 
 std::string ToBinaryString(const char* buf,int len)
 {
@@ -157,12 +128,9 @@ int getTokenId(switch_da_t *pvt) {
 
         /*获取token. 成功返回0, 失败返回-1*/
         if (-1 == nlsTokenRequest.applyNlsToken()) {
-            //cout << "Failed: " << nlsTokenRequest.getErrorMsg() << endl; /*获取失败原因*/
             switch_log_printf(SWITCH_CHANNEL_LOG, SWITCH_LOG_WARNING, " GetTokenFailed  %s\n", nlsTokenRequest.getErrorMsg());
             return -1;
         } else {
-           // cout << "TokenId: " << nlsTokenRequest.getToken() << endl; /*获取TokenId*/
-           // cout << "TokenId expireTime: " << nlsTokenRequest.getExpireTime() << endl; /*获取Token有效期时间戳(秒)*/
             memcpy(pvt->tokenid,nlsTokenRequest.getToken(),100);
             pvt->tokentime = nlsTokenRequest.getExpireTime();
             switch_log_printf(SWITCH_CHANNEL_LOG, SWITCH_LOG_NOTICE, "GetToken:%s  %d\n", pvt->tokenid,pvt->tokentime);
@@ -200,8 +168,8 @@ void onSentenceEnd(NlsEvent* cbEvent, void* cbParam) {
     switch_log_printf(SWITCH_CHANNEL_LOG, SWITCH_LOG_NOTICE, "----------------------------------2:%s\n", cbEvent->getAllResponse());
     //cJSON *cj, *cjp, *cjc1, *cjc2, *cjc3;
     cJSON *cj, *cjp, *cjc2, *cjc3;
-    int nflag = 0;
-    int nlen = 0;
+//    int nflag = 0;
+//    int nlen = 0;
     int nevent = 0;
     if (!(cj = cJSON_Parse(cbEvent->getAllResponse()))) {
         //return SWITCH_STATUS_FALSE;
@@ -256,12 +224,10 @@ void onSentenceEnd(NlsEvent* cbEvent, void* cbParam) {
 
                                 //switch_mutex_lock(pvt->mutex);
                                 //pthread_mutex_lock(&(pvt->mutex));
-                                nflag = (cjc2->valueint * pvt->framelen)/20 - pvt->datatotal;
-                                nlen = ((cjc3->valueint - cjc2->valueint) * pvt->framelen)/20;
+//                                nflag = (cjc2->valueint * pvt->framelen)/20 - pvt->datatotal;
+//                                nlen = ((cjc3->valueint - cjc2->valueint) * pvt->framelen)/20;
                                 tmpParam->iTimeFlag = cjc3->valueint;
                                 //pthread_mutex_unlock(&(pvt->mutex));
-
-                                wavWrite_int16(fullpath, pvt->framedata+nflag, 8000, (uint32_t) nlen);
                                 if(switch_channel_test_flag(channel, CF_ANSWERED) != 0)
                                 {
                                     switch_snprintf(answered, sizeof(answered), "true");
@@ -269,20 +235,22 @@ void onSentenceEnd(NlsEvent* cbEvent, void* cbParam) {
                                 {
                                     switch_snprintf(answered, sizeof(answered), "false");
                                 }
-                              //switch_mutex_unlock(pvt->mutex);
 
+                              //switch_mutex_unlock(pvt->mutex);
 
                             }
                             //switch_core_session_rwunlock(ses);
                             switch_event_t *event = NULL;
                             if (switch_event_create(&event, SWITCH_EVENT_CUSTOM) == SWITCH_STATUS_SUCCESS) {
-                                event->subclass_name = strdup("EV_ALIASR");
+                                event->subclass_name = strdup("asr");//EV_ALIASR
                                 switch_event_add_header_string(event, SWITCH_STACK_BOTTOM, "Event-Subclass", event->subclass_name);
                                 switch_event_add_header_string(event, SWITCH_STACK_BOTTOM, "UUID", tmpParam->sUUID);
                                 switch_event_add_header_string(event, SWITCH_STACK_BOTTOM, "ASR-Response", cbEvent->getAllResponse());
                                 switch_event_add_header_string(event, SWITCH_STACK_BOTTOM, "Timestamp",currtime);
+                                /*
                                 switch_event_add_header_string(event, SWITCH_STACK_BOTTOM, "FilePath",fullpath);
                                 switch_event_add_header_string(event, SWITCH_STACK_BOTTOM, "FileName",filename);
+                                */
                                 switch_event_add_header_string(event, SWITCH_STACK_BOTTOM, "Answered",answered);
 
                                 //switch_mutex_lock(pvt->mutex);
@@ -378,7 +346,7 @@ void onTranscriptionResultChanged(NlsEvent* cbEvent, void* cbParam) {
                         }
                         switch_event_t *event = NULL;
                         if (switch_event_create(&event, SWITCH_EVENT_CUSTOM) == SWITCH_STATUS_SUCCESS) {
-                            event->subclass_name = strdup("EV_ALIASR_0");
+                            event->subclass_name = strdup("asr");//EV_ALIASR_0
                             switch_event_add_header_string(event, SWITCH_STACK_BOTTOM, "Event-Subclass", event->subclass_name);
                             switch_event_add_header_string(event, SWITCH_STACK_BOTTOM, "UUID", tmpParam->sUUID);
                             switch_event_add_header_string(event, SWITCH_STACK_BOTTOM, "ASR-Response", cbEvent->getAllResponse());
@@ -386,7 +354,6 @@ void onTranscriptionResultChanged(NlsEvent* cbEvent, void* cbParam) {
                             switch_event_add_header_string(event, SWITCH_STACK_BOTTOM, "Answered",answered);
                             switch_event_add_header_string(event, SWITCH_STACK_BOTTOM, "FilePath","");
                             switch_event_add_header_string(event, SWITCH_STACK_BOTTOM, "FileName","");
-
                             //switch_mutex_lock(pvt->mutex);
                            // pthread_mutex_lock(&(pvt->mutex));
                             switch_event_add_header_string(event, SWITCH_STACK_BOTTOM, "ASRLeg",pvt->leg);
@@ -860,9 +827,9 @@ SWITCH_STANDARD_APP(start_asr_session_function)
             pvt->request->setFormat("pcm"); // 设置音频数据编码格式, 可选参数, 目前支持pcm, opus, opu. 默认是pcm
             pvt->request->setSampleRate(SAMPLE_RATE); // 设置音频数据采样率, 可选参数, 目前支持16000, 8000. 默认是16000
             pvt->request->setIntermediateResult(true); // 设置是否返回中间识别结果, 可选参数. 默认false
-            pvt->request->setPunctuationPrediction(false); // 设置是否在后处理中添加标点, 可选参数. 默认false
-            pvt->request->setInverseTextNormalization(false); // 设置是否在后处理中执行ITN, 可选参数. 默认false
-            pvt->request->setSemanticSentenceDetection(false); // 设置是否语义断句, 可选参数. 默认false
+            pvt->request->setPunctuationPrediction(true); // 设置是否在后处理中添加标点, 可选参数. 默认false
+            pvt->request->setInverseTextNormalization(true); // 设置是否在后处理中执行ITN, 可选参数. 默认false
+            pvt->request->setSemanticSentenceDetection(true); // 设置是否语义断句, 可选参数. 默认false
             pvt->request->setMaxSentenceSilence(pvt->iSilence); //语音断句检测阈值，一句话之后静音长度超过该值，即本句结束，合法参数范围200～2000(ms)，默认值800ms
             pvt->request->setToken(pvt->tokenid); // 设置账号校验token, 必填参数
             if (switch_string_match(pvt->sUrl ,sizeof(pvt->sUrl),"null",4))
