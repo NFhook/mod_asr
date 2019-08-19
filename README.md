@@ -56,30 +56,73 @@ originate user/1001 'start_asr:un2wEHfu32KN5ELW Y90VLNxDfMOKWZBqsEJigUn1Wpilbf L
 </extension>
 ```
 #### 开发
-订阅`CUSTOM asr` 事件
-fs_cli可以通过`/event Custom asr`订阅事件
+订阅`CUSTOM asr_start` `CUSTOM asr_update` `CUSTOM asr_stop` 事件
+fs_cli可以通过`/event Custom asr_start  asr_update asr_stop`订阅事件
 识别结果通过esl输出
-
 ```
 RECV EVENT
-Event-Subclass: asr
+Event-Subclass: asr_start
 Event-Name: CUSTOM
-Core-UUID: d5b1367c-6aa8-43f1-8f6e-5b243755ff64
+Core-UUID: 6882dc67-75c4-4f4f-b767-99c03281a6cc
 FreeSWITCH-Hostname: snapshot
 FreeSWITCH-Switchname: snapshot
 FreeSWITCH-IPv4: 10.11.11.205
 FreeSWITCH-IPv6: ::1
-Event-Date-Local: 2019-08-15 15:29:09
-Event-Date-GMT: Thu, 15 Aug 2019 07:29:09 GMT
-Event-Date-Timestamp: 1565854149087801
+Event-Date-Local: 2019-08-19 18:27:17
+Event-Date-GMT: Mon, 19 Aug 2019 10:27:17 GMT
+Event-Date-Timestamp: 1566210437305129
 Event-Calling-File: mod_asr.cpp
 Event-Calling-Function: onSentenceEnd
-Event-Calling-Line-Number: 279
-Event-Sequence: 773
-UUID: 227a4d29-604f-4e8d-8067-722ac2bf89f4
-ASR-Response: {"header":{"namespace":"SpeechTranscriber","name":"SentenceEnd","status":20000000,"message_id":"a803c11eb2af4d7f9b209be6cdc2c3fb","task_id":"f9de5d4b307344d8b08149270464ea60","status_text":"Gateway:SUCCESS:Success."},"payload":{"index":2,"time":9000,"begin_time":8400,"result":"喂你好。","confidence":0.0,"words":[],"status":20000000,"stash_result":{"sentenceId":0,"beginTime":0,"text":"","currentTime":0}}}
-Timestamp: 20190815152909087801
+Event-Calling-Line-Number: 278
+Event-Sequence: 1357
+UUID: e66e1cf8-6840-4a1e-a44f-173be182bf0f
+ASR-Response: {"header":{"namespace":"SpeechTranscriber","name":"SentenceEnd","status":20000000,"message_id":"4214eaa99b0a4de98e7a92f66fb310f1","task_id":"fc56bab0a08f471c88f0dffe50de4111","status_text":"Gateway:SUCCESS:Success."},"payload":{"index":13,"time":79560,"begin_time":77550,"result":"行行行，好，嗯，好的好好好，拜拜，嗯。","confidence":0.0,"words":[],"status":20000000,"stash_result":{"sentenceId":0,"beginTime":0,"text":"","currentTime":0}}}
+Channel: sofia/internal/1008@ehuu.com
+Timestamp: 20190819182717305129
 Answered: true
-ASRLeg: aleg
+ASRLeg: bleg
+
+
 ```
-ASR-Response: asr识别返回结果
+RECV EVENT
+Event-Subclass: asr_update
+Event-Name: CUSTOM
+Core-UUID: 6882dc67-75c4-4f4f-b767-99c03281a6cc
+FreeSWITCH-Hostname: snapshot
+FreeSWITCH-Switchname: snapshot
+FreeSWITCH-IPv4: 10.11.11.205
+FreeSWITCH-IPv6: ::1
+Event-Date-Local: 2019-08-19 18:27:16
+Event-Date-GMT: Mon, 19 Aug 2019 10:27:16 GMT
+Event-Date-Timestamp: 1566210436424976
+Event-Calling-File: mod_asr.cpp
+Event-Calling-Function: onTranscriptionResultChanged
+Event-Calling-Line-Number: 382
+Event-Sequence: 1351
+UUID: e66e1cf8-6840-4a1e-a44f-173be182bf0f
+ASR-Response: {"header":{"namespace":"SpeechTranscriber","name":"TranscriptionResultChanged","status":20000000,"message_id":"435b1bf446354bccb58acd22fa07513d","task_id":"fc56bab0a08f471c88f0dffe50de4111","status_text":"Gateway:SUCCESS:Success."},"payload":{"index":12,"time":78900,"result":"嗯，这目前没有时间给你哦。行行行好嗯好的好","confidence":0.0,"words":[],"status":20000000}}
+Channel: sofia/internal/1008@ehuu.com
+Timestamp: 20190819182716424976
+Answered: true
+ASRLeg: bleg
+```
+
+```
+RECV EVENT
+Event-Subclass: asr_stop
+Event-Name: CUSTOM
+Core-UUID: 6882dc67-75c4-4f4f-b767-99c03281a6cc
+FreeSWITCH-Hostname: snapshot
+FreeSWITCH-Switchname: snapshot
+FreeSWITCH-IPv4: 10.11.11.205
+FreeSWITCH-IPv6: ::1
+Event-Date-Local: 2019-08-19 18:27:17
+Event-Date-GMT: Mon, 19 Aug 2019 10:27:17 GMT
+Event-Date-Timestamp: 1566210437305129
+Event-Calling-File: mod_asr.cpp
+Event-Calling-Function: OnChannelClosed
+Event-Calling-Line-Number: 456
+Event-Sequence: 1358
+```
+
+ASR-Response: asr识别返回结果 Channel: 当前Channel Name 
