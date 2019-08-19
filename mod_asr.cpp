@@ -198,7 +198,7 @@ void onSentenceEnd(NlsEvent* cbEvent, void* cbParam) {
     switch_snprintf(currtime, sizeof(currtime), "%0.4d%0.2d%0.2d%0.2d%0.2d%0.2d%0.6d",
                     tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec, tm.tm_usec);
     switch_snprintf(filepath, sizeof(filepath), "../recordings/");
-    switch_log_printf(SWITCH_CHANNEL_LOG, SWITCH_LOG_NOTICE, "----------------------------------2:%s\n", cbEvent->getAllResponse());
+    switch_log_printf(SWITCH_CHANNEL_LOG, SWITCH_LOG_NOTICE, "---------SentenceEnd---------: %s\n", cbEvent->getAllResponse());
     cJSON *cj, *cjp, *cjc1, *cjc2, *cjc3;
     int nflag = 0;
     int nlen = 0;
@@ -336,7 +336,7 @@ void onTranscriptionResultChanged(NlsEvent* cbEvent, void* cbParam) {
     switch_time_exp_lt(&tm, now);
     switch_snprintf(currtime, sizeof(currtime), "%0.4d%0.2d%0.2d%0.2d%0.2d%0.2d%0.6d",tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec, tm.tm_usec);
     switch_snprintf(filepath, sizeof(filepath), "../recordings/");
-    switch_log_printf(SWITCH_CHANNEL_LOG, SWITCH_LOG_NOTICE, "----------------------------------1:%s\n", cbEvent->getAllResponse());
+    switch_log_printf(SWITCH_CHANNEL_LOG, SWITCH_LOG_NOTICE, "---------ResultChange:--------- %s\n", cbEvent->getAllResponse());
     cJSON *cj, *cjp, *cjc1, *cjc2, *cjc3;
     int nflag = 0;
     int nlen = 0;
@@ -540,10 +540,10 @@ void onTaskFailed(NlsEvent* cbEvent, void* cbParam) {
             pvt->request->setAppKey(pvt->id); // 设置AppKey, 必填参数, 请参照官网申请
             pvt->request->setFormat("pcm"); // 设置音频数据编码格式, 可选参数, 目前支持pcm, opus, opu. 默认是pcm
             pvt->request->setSampleRate(SAMPLE_RATE); // 设置音频数据采样率, 可选参数, 目前支持16000, 8000. 默认是16000
-            pvt->request->setIntermediateResult(false); // 设置是否返回中间识别结果, 可选参数. 默认false
-            pvt->request->setPunctuationPrediction(false); // 设置是否在后处理中添加标点, 可选参数. 默认false
-            pvt->request->setInverseTextNormalization(false); // 设置是否在后处理中执行ITN, 可选参数. 默认false
-            pvt->request->setSemanticSentenceDetection(false); // 设置是否语义断句, 可选参数. 默认false
+            pvt->request->setIntermediateResult(true); // 设置是否返回中间识别结果, 可选参数. 默认false
+            pvt->request->setPunctuationPrediction(true); // 设置是否在后处理中添加标点, 可选参数. 默认false
+            pvt->request->setInverseTextNormalization(true); // 设置是否在后处理中执行ITN, 可选参数. 默认false
+            pvt->request->setSemanticSentenceDetection(true); // 设置是否语义断句, 可选参数. 默认false
             pvt->request->setMaxSentenceSilence(pvt->iSilence);
             pvt->request->setToken(pvt->tokenid); // 设置账号校验token, 必填参数
             if (switch_string_match(pvt->sUrl ,sizeof(pvt->sUrl),"null",4))
@@ -862,10 +862,10 @@ SWITCH_STANDARD_APP(start_asr_session_function)
             pvt->request->setAppKey(pvt->id); // 设置AppKey, 必填参数, 请参照官网申请
             pvt->request->setFormat("pcm"); // 设置音频数据编码格式, 可选参数, 目前支持pcm, opus, opu. 默认是pcm
             pvt->request->setSampleRate(SAMPLE_RATE); // 设置音频数据采样率, 可选参数, 目前支持16000, 8000. 默认是16000
-            pvt->request->setIntermediateResult(false); // 设置是否返回中间识别结果, 可选参数. 默认false
-            pvt->request->setPunctuationPrediction(false); // 设置是否在后处理中添加标点, 可选参数. 默认false
-            pvt->request->setInverseTextNormalization(false); // 设置是否在后处理中执行ITN, 可选参数. 默认false
-            pvt->request->setSemanticSentenceDetection(false); // 设置是否语义断句, 可选参数. 默认false
+            pvt->request->setIntermediateResult(true); // 设置是否返回中间识别结果, 可选参数. 默认false
+            pvt->request->setPunctuationPrediction(true); // 设置是否在后处理中添加标点, 可选参数. 默认false
+            pvt->request->setInverseTextNormalization(true); // 设置是否在后处理中执行ITN, 可选参数. 默认false
+            pvt->request->setSemanticSentenceDetection(true); // 设置是否语义断句, 可选参数. 默认false
             pvt->request->setMaxSentenceSilence(pvt->iSilence); //语音断句检测阈值，一句话之后静音长度超过该值，即本句结束，合法参数范围200～2000(ms)，默认值800ms
             pvt->request->setToken(pvt->tokenid); // 设置账号校验token, 必填参数
             if (switch_string_match(pvt->sUrl ,sizeof(pvt->sUrl),"null",4))
