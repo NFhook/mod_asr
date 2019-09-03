@@ -6,8 +6,6 @@
 
 #include <string>
 #include <unistd.h>
-//#define DR_WAV_IMPLEMENTATION
-//#include "dr_wav.h"
 
 #define FRAME_SIZE 3200
 #define SAMPLE_RATE 8000
@@ -15,8 +13,6 @@
 using std::map;
 using std::string;
 using std::vector;
-//using std::cout;
-//using std::endl;
 using std::ifstream;
 using std::ios;
 
@@ -67,27 +63,6 @@ typedef struct {
     int                     datatotal;
     int                     framelen;
 } switch_da_t;
-
-
-/*
-void wavWrite_int16(char *filename, char *buffer, int sampleRate, uint32_t totalSampleCount) {
-    drwav_data_format format;
-    format.container = drwav_container_riff;
-    format.format = DR_WAVE_FORMAT_PCM;
-    format.channels = 1;
-    format.sampleRate = (drwav_uint32) sampleRate;
-    format.bitsPerSample = 16;
-    drwav *pWav = drwav_open_file_write(filename, &format);
-    if (pWav) {
-        drwav_uint64 samplesWritten = drwav_write_raw(pWav, totalSampleCount, buffer);
-        drwav_uninit(pWav);
-        if (samplesWritten != totalSampleCount) {
-            fprintf(stderr, "ERROR.\n");
-            exit(1);
-        }
-    }
-}
-*/
 
 std::string ToBinaryString(const char* buf,int len)
 {
@@ -266,7 +241,6 @@ void onSentenceEnd(NlsEvent* cbEvent, void* cbParam) {
                                 tmpParam->iTimeFlag = cjc3->valueint;
                                 //pthread_mutex_unlock(&(pvt->mutex));
 
-                                //wavWrite_int16(fullpath, pvt->framedata+nflag, 8000, (uint32_t) nlen);
                                 if(switch_channel_test_flag(channel, CF_ANSWERED) != 0)
                                 {
                                     switch_snprintf(answered, sizeof(answered), "true");
@@ -343,11 +317,6 @@ void onTranscriptionResultChanged(NlsEvent* cbEvent, void* cbParam) {
     switch_snprintf(filepath, sizeof(filepath), "../recordings/");
     switch_log_printf(SWITCH_CHANNEL_LOG, SWITCH_LOG_NOTICE, "---------ResultChange:--------- %s\n", cbEvent->getAllResponse());
     cJSON *cj, *cjp;
-    /*
-    cJSON *cj, *cjp, *cjc1, *cjc2, *cjc3;
-    int nflag = 0;
-    int nlen = 0;
-    */
     if (!(cj = cJSON_Parse(cbEvent->getAllResponse()))) {
         //return SWITCH_STATUS_FALSE;
     }else
@@ -395,16 +364,7 @@ void onTranscriptionResultChanged(NlsEvent* cbEvent, void* cbParam) {
                             switch_event_add_header_string(event, SWITCH_STACK_BOTTOM, "Channel", switch_channel_get_name(channel));
                             switch_event_add_header_string(event, SWITCH_STACK_BOTTOM, "Timestamp",currtime);
                             switch_event_add_header_string(event, SWITCH_STACK_BOTTOM, "Answered",answered);
-                            /*
-                            switch_event_add_header_string(event, SWITCH_STACK_BOTTOM, "FilePath","");
-                            switch_event_add_header_string(event, SWITCH_STACK_BOTTOM, "FileName","");
-                            */
-                            //switch_mutex_lock(pvt->mutex);
-                           // pthread_mutex_lock(&(pvt->mutex));
                             switch_event_add_header_string(event, SWITCH_STACK_BOTTOM, "ASRLeg",pvt->leg);
-                            //switch_mutex_unlock(pvt->mutex);
-                           // pthread_mutex_unlock(&(pvt->mutex));
-
                             switch_event_fire(&event);
                         }
                     }

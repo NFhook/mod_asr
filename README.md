@@ -43,7 +43,7 @@ start_asr参数:
 [start_asr:<your appkey> <your AccessKey ID> <your AccessKey Secret> <Asrleg> <iSilence> <sUrl>]
 ```
 ```
-originate user/1001 'start_asr:un2wEHfu32KN5ELW Y90VLNxDfMOKWZBqsEJigUn1Wpilbf LTAIwloSbAnFxcWK bleg 300 null' inline
+originate user/1001 'start_asr:un2wEHfu32KN5ELW Y90VLNxDfMOKWZBqsEJigUn1Wpilbf LTAIwloSbAnFxcWK bleg 300 null,park' inline
 ```
 3. dialplan执行
 ```
