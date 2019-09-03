@@ -83,7 +83,6 @@ Answered: true
 ASRLeg: bleg
 
 
-```
 RECV EVENT
 Event-Subclass: asr_update
 Event-Name: CUSTOM
@@ -105,9 +104,8 @@ Channel: sofia/internal/1008@ehuu.com
 Timestamp: 20190819182716424976
 Answered: true
 ASRLeg: bleg
-```
 
-```
+
 RECV EVENT
 Event-Subclass: asr_stop
 Event-Name: CUSTOM
