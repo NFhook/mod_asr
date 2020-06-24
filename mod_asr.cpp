@@ -677,9 +677,6 @@ static switch_bool_t asr_callback(switch_media_bug_t *bug, void *user_data, swit
 
             if (switch_string_match(pvt->leg ,sizeof(pvt->leg),"aleg",4))
             {
-
-            }else
-            {
                 frame = switch_core_media_bug_get_read_replace_frame(bug);
                 if (frame) {
                     char*frame_data = (char*)frame->data;
